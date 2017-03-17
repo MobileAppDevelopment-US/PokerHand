@@ -11,12 +11,12 @@
 @interface ViewController ()
 
 @property (strong, nonatomic) NSMutableArray *images;
+@property (assign, nonatomic) CGFloat sizeWidthImage;
 
 @end
 
 @implementation ViewController
 
-// просматривать лучше горизонтально!!!
 
 // при нажатии на кнопку - на экране показываются комбинации карт в покере, карты в 1 комбинации не повторяются
 // не реализовано:
@@ -25,6 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.sizeWidthImage = (self.view.frame.size.width - 60) / 5; // ширина карты
 
     [self createButton];
     [self createLabel];
@@ -45,8 +47,7 @@
         
         UIImageView *imgView = [[UIImageView alloc] init];
         
-        CGFloat width = (self.view.frame.size.width - 60) / 5; // ширина вьюхи
-        imgView.frame = CGRectMake((width * i - width + i * 10), 100, width, width * 1.5);
+        imgView.frame = CGRectMake((self.sizeWidthImage * i - self.sizeWidthImage + i * 10), 100, self.sizeWidthImage, self.sizeWidthImage * 1.5);
         imgView.image = [self.images objectAtIndex:0]; // присваиваю имиджу
         imgView.tag = i; // присваеваю тег - индекс
         
@@ -74,7 +75,7 @@
     UIButton *button = [UIButton new];
     
     CGFloat size = (self.view.frame.size.width / 3);
-    button.frame = CGRectMake(size, 330, size, 50);
+    button.frame = CGRectMake(size, self.sizeWidthImage * 1.5 + 115, size, 50);
     button.backgroundColor = [UIColor colorWithRed:255.0/255 green:147.0/255 blue:47.0/255 alpha:1];
     button.layer.borderWidth = 2;
     [self.view addSubview:button];
